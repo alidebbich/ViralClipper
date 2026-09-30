@@ -1,0 +1,45 @@
+[package]
+name = "clipper"
+version = "0.1.0"
+description = "Local-First Viral Clipper"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "clipper_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+anyhow = "1"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+ffmpeg-sidecar = "0.3"
+pyo3 = { version = "0.22", features = ["extension-module", "abi3-py311"] }
+pyo3-ffi = "0.22"
+nvml-wrapper = "0.8"
+sysinfo = "0.30"
+dirs = "5"
+lazy_static = "1.4"
+once_cell = "1.19"
+rusqlite = { version = "0.31", features = ["bundled", "modern_sqlite", "vtab", "functions"] }
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "sqlite", "chrono", "uuid", "migrate"] }
+tauri-plugin-opener = "2"
+tauri-plugin-shell = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-store = "2"
+tauri-plugin-process = "2"
+tauri-plugin-updater = "2"
+tauri-plugin-log = "2"
+tauri-plugin-global-shortcut = "2"

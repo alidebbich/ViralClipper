@@ -1,0 +1,68 @@
+# ─── Secrets ────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env*.local
+
+# ─── Node / Frontend ────────────────────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# ─── Rust build ─────────────────────────────────────────────────────────────
+src-tauri/target/
+clipper/src-tauri/target/
+target/
+
+# ─── Python ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# ─── Models (download on first run, never commit) ───────────────────────────
+python/models/
+models/
+
+# ─── Downloads / cache ──────────────────────────────────────────────────────
+downloads/
+*.part
+*.part-Frag*
+*.ytdl
+*.info.json
+*.webp
+*.wav
+
+# ─── Large committed binaries (moved to setup step) ─────────────────────────
+src-tauri/binaries/ffmpeg.exe
+src-tauri/binaries/python.exe
+bgutil-pot.exe
+
+# ─── Editor ─────────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# ─── Logs ───────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─── Tauri gen (auto-generated) ─────────────────────────────────────────────
+src-tauri/gen/
+
+# Windows reserved filenames
+nul
+*/nul
+**/nul

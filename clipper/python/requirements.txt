@@ -1,0 +1,29 @@
+# Clipper - Python backend modules
+# Requirements for the Python pipeline
+
+# Core dependencies
+faster-whisper==1.0.3
+torch==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+
+# Video processing
+opencv-python-headless==4.10.0.84
+moviepy==1.0.3
+ffmpeg-python==0.2.0
+
+# NLP / Analysis
+spacy==3.7.5
+nltk==3.8.1
+vaderSentiment==3.3.2
+textstat==0.7.3
+
+# Database
+sqlite-vec==0.1.6
+sqlalchemy==2.0.32
+
+# Utilities
+numpy==1.26.4
+pydantic==2.8.2
+python-dotenv==1.0.1
+requests==2.32.3
+tqdm==4.66.5
