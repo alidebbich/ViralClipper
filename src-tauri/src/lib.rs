@@ -3,29 +3,41 @@
 
 pub mod pipeline;
 pub mod ffmpeg;
-pub mod whisper;
-pub mod ollama;
-pub mod scorer;
+pub mod render;
 pub mod assets;
 pub mod templates;
-pub mod thermal;
-pub mod database;
+pub mod storage;
 pub mod common;
 pub mod gemini;
+pub mod ollama;
+pub mod providers;
+pub mod watchdog;
+pub mod script_to_video;
+pub mod types;
+pub mod config;
+pub mod error;
 
 // Re-export common types (single source of truth)
 pub use common::{Clip, Transcript, TranscriptSegment, Word, HeuristicScores, OllamaTranscript, ClipSegment};
 
-// Re-export module-specific functionality (functions only, no duplicate types)
+// Re-export module-specific functionality
 pub use pipeline::{PipelineStage, PipelineState, ClipInfo, StartPipelineRequest};
 pub use ffmpeg::{render_clip, generate_ass_file};
-pub use whisper::{transcribe};
 pub use ollama::{rerank_clips, RerankResult};
-pub use scorer::{analyze_and_score};
 pub use assets::{Asset, AssetSearchQuery};
 pub use templates::{Template, AssStyle, FilterGraphConfig, Theme, default_templates};
-pub use thermal::{ThermalStatus, ThermalConfig};
-pub use database::{Project, Clip as DbClip, Asset as DbAsset, Template as DbTemplate, DbPool, init as init_db, get_projects, get_clips, SocialAccount, ScheduledPost, Thumbnail, ViralPrediction, ModelConfig, UserPreferences, add_social_account, get_social_accounts, delete_social_account, schedule_post, get_scheduled_posts, create_thumbnail, get_thumbnails, create_viral_prediction, get_viral_predictions, get_model_configs, add_model_config, set_default_model, set_preference, get_preference, set_user_preference, get_user_preference};
+pub use storage::{
+    Project, Clip as DbClip, Asset as DbAsset, Template as DbTemplate, DbPool,
+    init as init_db, get_projects, get_clips,
+    SocialAccount, ScheduledPost, Thumbnail, ViralPrediction, ModelConfig,
+    add_social_account, get_social_accounts, delete_social_account,
+    schedule_post, get_scheduled_posts,
+    create_thumbnail, get_thumbnails,
+    create_viral_prediction, get_viral_predictions,
+    get_model_configs, add_model_config, set_default_model,
+    set_preference, get_preference,
+    set_user_preference, get_user_preference,
+};
 pub use gemini::{predict_viral_potential, optimize_content, generate_thumbnail_prompts, ViralPredictionResult, ContentOptimizationResult};
 
 use tauri::Manager;
@@ -57,26 +69,52 @@ pub fn run() {
             templates::delete_template,
             templates::import_template,
             templates::export_template,
-            database::get_projects,
-            database::get_clips,
-            database::reset_database,
-            thermal::get_thermal_status,
-            thermal::get_thermal_config,
-            thermal::set_thermal_config,
-            thermal::is_render_paused,
-            thermal::wait_for_thermal_clear,
+            storage::get_projects,
+            storage::get_clips,
+            storage::reset_database,
+            pipeline::render::render_clip_cmd,
+            pipeline::render::render_all_clips_cmd,
+            pipeline::render::open_rendered_folder,
+            pipeline::render::export_rendered_clip,
+            pipeline::render::quick_export_clip,
+            pipeline::render::generate_thumbnails,
+            pipeline::render::delete_clip,
+            pipeline::render::copy_file,
+            pipeline::render::open_url,
+            pipeline::render::get_clip_edl,
+            pipeline::render::update_clip_edl,
+            storage::get_user_preference,
+            storage::set_user_preference,
+            script_to_video::commands::generate_script_plan_cmd,
+            script_to_video::commands::list_tts_voices_cmd,
+            script_to_video::commands::list_tts_voices_by_language_cmd,
+            script_to_video::commands::preview_tts_voice_cmd,
+            script_to_video::commands::generate_scene_voice_cmd,
+            script_to_video::commands::assemble_video_cmd,
+            script_to_video::commands::refresh_models_cmd,
+            script_to_video::commands::get_cached_models_cmd,
+            script_to_video::commands::test_provider_cmd,
+            script_to_video::commands::parse_script_cmd,
+            script_to_video::commands::update_scene_cmd,
+            debug_llm_keys,
         ])
         .setup(|app| {
-            database::init(app.handle().clone())?;
-            thermal::start_monitor(app.handle().clone());
-            
+            storage::init(app.handle().clone())?;
+            watchdog::spawn_watchdog(Some(app.handle().clone()));
+
             app.handle().plugin(tauri_plugin_global_shortcut::Builder::new().build())?;
-            
+
             let app_handle = app.handle().clone();
             let shortcut = tauri_plugin_global_shortcut::Shortcut::new(
-                Some(Modifiers::CONTROL | Modifiers::SHIFT), 
+                Some(Modifiers::CONTROL | Modifiers::SHIFT),
                 Code::KeyV
             );
+            
+            // Check if already registered and unregister if so
+            if app.global_shortcut().is_registered(shortcut) {
+                let _ = app.global_shortcut().unregister(shortcut);
+            }
+            
             app.global_shortcut().on_shortcut(shortcut, move |_app, _shortcut, _event| {
                 if let Some(window) = app_handle.get_webview_window("main") {
                     if window.is_visible().unwrap_or(false) {
@@ -87,7 +125,7 @@ pub fn run() {
                     }
                 }
             })?;
-            
+
             setup_tray(app.handle())?;
             Ok(())
         })
@@ -133,4 +171,33 @@ fn setup_tray(app_handle: &tauri::AppHandle) -> Result<(), Box<dyn std::error::E
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! Welcome to Viral Clipper", name)
+}
+
+/// Debug command — returns what LLM keys the app can currently find.
+/// Call from browser console: window.__TAURI__.core.invoke('debug_llm_keys')
+#[tauri::command]
+fn debug_llm_keys(pool: tauri::State<'_, storage::DbPool>) -> String {
+    let groq_env = std::env::var("GROQ_API_KEY").ok().filter(|k| !k.trim().is_empty());
+    let groq_file = pipeline::get_key_from_env_file("GROQ_API_KEY");
+    let groq_db = pool.lock().ok().and_then(|conn| {
+        storage::get_user_preference_internal(&conn, "groq_api_key").ok().flatten()
+            .map(|p| p.value_json.trim_matches('"').to_string())
+            .filter(|k| !k.trim().is_empty())
+    });
+
+    let gemini_env = std::env::var("GEMINI_API_KEY").ok().filter(|k| !k.trim().is_empty());
+    let gemini_file = pipeline::get_key_from_env_file("GEMINI_API_KEY");
+    let gemini_db = pool.lock().ok().and_then(|conn| {
+        storage::get_user_preference_internal(&conn, "gemini_api_key").ok().flatten()
+            .map(|p| p.value_json.trim_matches('"').to_string())
+            .filter(|k| !k.trim().is_empty())
+    });
+
+    let mask = |s: &Option<String>| s.as_deref().map(|k| format!("{}…", &k[..k.len().min(12)])).unwrap_or_else(|| "(not found)".to_string());
+
+    format!(
+        "GROQ: env={} | file={} | db={}\nGEMINI: env={} | file={} | db={}",
+        mask(&groq_env), mask(&groq_file), mask(&groq_db),
+        mask(&gemini_env), mask(&gemini_file), mask(&gemini_db),
+    )
 }

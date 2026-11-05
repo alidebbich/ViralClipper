@@ -1,169 +1,196 @@
-# ⚡ Viral Clipper
-
 <div align="center">
 
-![Tauri 2](https://img.shields.io/badge/Tauri-2.0-24C8D8?style=for-the-badge&logo=tauri&logoColor=white)
-![Rust](https://img.shields.io/badge/Rust-2021_Edition-DEA584?style=for-the-badge&logo=rust&logoColor=white)
-![React 19](https://img.shields.io/badge/React-19.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![FFmpeg](https://img.shields.io/badge/FFmpeg-9.0_Full-007808?style=for-the-badge&logo=ffmpeg&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![NVIDIA NVENC](https://img.shields.io/badge/NVIDIA-NVENC_Accelerated-76B900?style=for-the-badge&logo=nvidia&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+# ⚡ Viral Clipper
+### *The Autonomous, Local-First AI Short-Form Video Studio*
 
 <p align="center">
-  <strong>Local-First AI Short-Form Video Editing Studio</strong><br />
-  Turn long-form YouTube videos, podcasts, and streams into high-retention 9:16 vertical clips (TikTok, YouTube Shorts, Instagram Reels) with smart face tracking, dynamic word-by-word animated captions, jump cuts, punch-in zooms, and audio mastering — completely free and privacy-focused.
+  <strong>Transform long-form YouTube videos, podcasts, and streams into high-retention 9:16 vertical clips.</strong><br />
+  Automated face tracking • Kinetic word-by-word subtitles • Dead-air trimming • Dynamic punch zooms • Broadcast audio mastering
 </p>
 
-[Key Features](#-key-features) •
-[Architecture](#-architecture) •
-[Style Presets](#-built-in-style-presets) •
-[Hardware & Requirements](#-hardware--system-requirements) •
-[Installation](#-quickstart-guide) •
-[Testing & QA](#-verification--quality-assurance)
+<p align="center">
+  <a href="https://tauri.app/"><img src="https://img.shields.io/badge/Tauri-2.0-24C8D8?style=flat-square&logo=tauri&logoColor=white" alt="Tauri 2"></a>
+  <a href="https://www.rust-lang.org/"><img src="https://img.shields.io/badge/Rust-2021_Edition-DEA584?style=flat-square&logo=rust&logoColor=white" alt="Rust"></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19.1-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 19"></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"></a>
+  <a href="https://ffmpeg.org/"><img src="https://img.shields.io/badge/FFmpeg-9.0_Full-007808?style=flat-square&logo=ffmpeg&logoColor=white" alt="FFmpeg"></a>
+  <a href="https://developer.nvidia.com/video-encode-decode-gpu-support-matrix"><img src="https://img.shields.io/badge/NVIDIA-NVENC_Accelerated-76B900?style=flat-square&logo=nvidia&logoColor=white" alt="NVENC"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License"></a>
+</p>
 
-</div>
+<p align="center">
+  <a href="#-showcase">Showcase</a> •
+  <a href="#-core-features">Features</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-style-presets">Style Presets</a> •
+  <a href="#-hardware--specs">Hardware Specs</a> •
+  <a href="#-quickstart">Quickstart</a> •
+  <a href="#-testing--qa">Testing & QA</a>
+</p>
 
 ---
 
-## 🌟 Visual Showcase
+</div>
+
+## 📸 Showcase
 
 <div align="center">
-  <img src="docs/evidence/showcase_contact.jpg" alt="Viral Clipper Output Contact Sheet" width="850" />
-  <p><em>Real Render: 16:9 Landscape YouTube stream reframed to 9:16 Vertical with YuNet Face Tracking, Responsive Title, Kinetic Pop Subtitles, and Dead-Air Trimming.</em></p>
+  <img src="assets/showcase_contact.jpg" alt="Viral Clipper Real Render Contact Sheet" width="900" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+  <br />
+  <sub><em>Render Validation: 16:9 YouTube Stream → 9:16 Vertical Short with YuNet Face Tracking, Dynamic Hook, Kinetic Pop Subtitles, and Dead-Air Cuts.</em></sub>
+</div>
+
+<br />
+
+<div align="center">
+
+| 🚀 1.2× Real-Time NVENC | 🎯 9:16 Deep Learning Face Crop | ⏱️ Zero-Drift Word Sync | 🛡️ 100% Free & Local-First |
+| :---: | :---: | :---: | :---: |
+| 1080×1920 @ 30 FPS Hardware Encode | YuNet ONNX Centroid Tracking | Sub-frame Timeline Remapping | Zero Subscription Fees |
+
 </div>
 
 ---
 
-## ✨ Key Features
+## ⚡ Core Features
 
-### 🎯 1. Whole-Video AI Analysis & Virality Scorer
-- **Context-Aware Moment Extraction:** Ingests long videos and evaluates speech density, emotional hooks, narrative escalation, and punchlines rather than arbitrary timers.
-- **Sentence-Boundary Snapping:** Clips snap cleanly to full grammatical sentences without clipped consonants or amputated context.
-- **Honest Feedback Rubric:** Provides realistic virality scores, hook ratings, and constructive editorial reasoning before you render.
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### 🎬 2. Autonomous Short-Form Director (Edit Engine V2)
-- **Deep Learning Smart Face Tracking:** Powered by OpenCV YuNet ONNX. Detects and tracks speaking faces across landscape sources, centering the action in a 9:16 portrait canvas with dead-zone stabilization and smooth camera glide.
-- **Cinematic Designed Background (BlurFit):** For wide footage, multi-speaker setups, or gameplay, scales foreground content to fill **60%–75% of the portrait height** over an ultra-clean Lanczos-filtered blurred backdrop (eliminating the tiny 30% horizontal letterbox strip defect).
-- **Dead-Air Silence Trimming:** Intelligently detects and cuts awkward pauses with an **80–120ms safety breathing margin**, keeping pacing brisk while preserving natural speech rhythm.
-- **Dynamic Punch-In Zooms:** Mathematic per-frame scale zoom punches (8%–18%) mathematically evaluated for key phrase transitions and dramatic cues.
-- **Broadcast Audio Mastering:** High-pass filter (70 Hz), EBU R128 loudness normalization (`-14 LUFS`), automatic background music sidechain ducking, and synchronized sound effects (`whoosh`, `pop`, `ding`, `hit`).
+### 🧠 Autonomous Creative Director
+- **Whole-Video Analysis:** Ingests long videos, evaluating speech density, emotional hooks, and narrative escalation rather than arbitrary time intervals.
+- **Sentence-Boundary Snapping:** Automatically detects sentence start and end points—never cuts words in half or leaves amputated thoughts.
+- **Honest Feedback Rubric:** Provides realistic virality scores, hook ratings, and actionable critique before rendering.
 
-### 💬 3. Kinetic Word-by-Word Animated Captions
-- **Zero-Drift Synchronization:** Timeline remapping tracks timestamps across cuts and trims with sub-frame accuracy.
-- **Anti-Flicker Chunking:** Natural 2–4 word grouping that prevents 1-word flashes on punctuation.
-- **Full RTL Arabic & Multilingual Support:** Correct logical character order preserving complex HarfBuzz and FriBidi shaping with bundled `Tajawal` font (no reversed letters or disjointed ligatures).
-- **Responsive Title & Hook Overlay:** Prominent, bold title overlay (8%–12% video width) with multi-line auto-wrapping, drop shadows, and anti-duplication logic that ensures the title never copies the opening speech verbatim.
+</td>
+<td width="50%" valign="top">
 
-### 📝 4. Script-to-Video Studio (Faceless Content)
-- Produce faceless vertical videos directly from a script: automatic scene breakdown, AI text-to-speech voice generation, stock visual assembly, and synchronized kinetic subtitles.
+### 👤 Deep Learning Face Tracking
+- **YuNet ONNX Centroid Tracking:** Automatically tracks speaker faces across 16:9 frames to compose smooth 9:16 vertical shorts.
+- **Camera Glide Stabilization:** Dead-zone smoothing prevents jitter and unnatural micro-movements during natural head motion.
+- **Multi-Person Fallback:** Intelligently centers on the primary speaker when multiple subjects appear.
 
-### ⚡ 5. 100% Free & Local-First (Zero Cost)
-- **Budget = $0:** Engineered to operate completely on consumer hardware (tested on Windows 11, ASUS TUF Gaming F15 with RTX 3050 Laptop GPU, 16 GB RAM).
-- **No Monthly SaaS Subscriptions:** Uses free API tiers (Google AI Studio Gemini, Groq Whisper) or 100% offline local models (`faster-whisper small` on CPU/CUDA).
-- **Hardware Accelerated:** Native NVIDIA NVENC (`h264_nvenc`) encoding renders 1080×1920 30fps videos 1.2×+ faster than real time, with automatic fallback to optimized `libx264`.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 💬 Kinetic Karaoke Subtitles
+- **Word-Level Sub-Frame Sync:** Subtitles stay perfectly synchronized across jump cuts using deterministic timeline remapping.
+- **Phrase-Aware Chunking:** Natural 2–4 word groupings with punctuation anti-flicker protection (no isolated 1-word flashes).
+- **Native Arabic RTL Support:** Built-in HarfBuzz and FriBidi shaping with bundled `Tajawal` font—proper ligatures and glyph direction.
+- **Responsive Dynamic Titles:** Prominent 8%–12% width title banner with auto-wrapping and anti-duplication protection.
+
+</td>
+<td width="50%" valign="top">
+
+### ✂️ Precision Pacing & Edit Engine
+- **Dead-Air Silence Trimming:** Detects pauses and awkward silences, inserting an 80–120ms safety margin to preserve speech rhythm.
+- **Dynamic Punch-In Zooms:** Evaluates per-frame scale zoom punches (8%–18%) tied to topic shifts and dramatic hooks.
+- **Designed Background BlurFit:** For wide shots or gameplay, scales foreground to occupy 60%–75% canvas height with Lanczos-filtered blur.
+- **Broadcast Audio Mastering:** High-pass filter (70 Hz), EBU R128 loudness normalization (`-14 LUFS`), and sidechain music ducking.
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## 🏗️ Architecture
 
 ```mermaid
-flowchart TD
-    subgraph INGESTION ["1. Ingestion & Preprocessing"]
-        YT["YouTube URL / Local Video"] --> DL["Resilient Downloader (download_yt.py)<br/>Auto GGC Failover + UTF-8 Guard"]
-        DL --> AUD["Audio Extraction (16kHz Mono WAV)"]
-    end
-
-    subgraph SPEECH ["2. Transcription Engine"]
-        AUD --> WHISPER{"API or Local?"}
-        WHISPER -->|Primary| GROQ["Groq Whisper API<br/>(whisper-large-v3-turbo)"]
-        WHISPER -->|Fallback / Offline| LOCAL["Local faster-whisper<br/>(small int8)"]
-        GROQ --> TRANSCRIPT["Word-Level Timestamps JSON"]
-        LOCAL --> TRANSCRIPT
-    end
-
-    subgraph BRAIN ["3. Editor Brain & EDL Planning"]
-        TRANSCRIPT --> FINDER["Clip Finder & Virality Scorer<br/>(Sentence Snapping & Energy Analysis)"]
-        FINDER --> EDL["Edit Decision List (EDL)<br/>• Dead-Air Cuts<br/>• Zoom Punches<br/>• Sound Effects<br/>• Deduplicated Hooks"]
-        DL --> FACE["YuNet Face Tracker (face_track.py)<br/>Speaker Centroid & Camera Glide"]
-    end
-
-    subgraph RENDER ["4. Deterministic FFmpeg Render Engine"]
-        EDL --> PLANNER["Timeline & Graph Builder (presets.rs)<br/>• FaceCrop vs BlurFit (60-75% height)<br/>• Per-Frame Scale Zoom<br/>• Loudnorm -14 LUFS & Sidechain Ducking"]
-        FACE --> PLANNER
-        EDL --> ASS["ASS Caption Generator (captions.rs)<br/>• Responsive Title Overlay<br/>• Word-Level Highlights<br/>• HarfBuzz/FriBidi Arabic RTL"]
-        PLANNER --> GRAPH["FFmpeg Complex Filter Graph"]
-        ASS --> GRAPH
-        GRAPH --> ENCODER{"Encoder Selection"}
-        ENCODER -->|GPU Primary| NVENC["NVIDIA NVENC (h264_nvenc p5)"]
-        ENCODER -->|CPU Fallback| X264["libx264 High Profile"]
-        NVENC --> MP4["Final 9:16 Vertical Video (1080x1920 MP4)"]
-        X264 --> MP4
-    end
+flowchart LR
+    classDef highlight fill:#1f2937,stroke:#3b82f6,stroke-width:2px,color:#fff;
+    classDef render fill:#111827,stroke:#10b981,stroke-width:2px,color:#fff;
+    
+    A["🎥 Source Video<br/>(YouTube URL / Local MP4)"] --> B["📥 Downloader & Ingest<br/>(Resilient GGC Failover)"]
+    B --> C["🎙️ Audio Extraction<br/>(16kHz Mono WAV)"]
+    C --> D{"Whisper Engine"}
+    
+    D -->|Cloud Primary| E["⚡ Groq Whisper<br/>(~15s for 10m video)"]
+    D -->|Local / Offline| F["💻 faster-whisper<br/>(small int8 CPU/CUDA)"]
+    
+    E --> G["📝 Word Timestamps JSON"]
+    F --> G
+    
+    G --> H["🧠 Clip Finder & Scorer<br/>(Boundary Snapping & Virality Rating)"]:::highlight
+    H --> I["📋 Edit Decision List (EDL)<br/>• Cuts • Zooms • SFX • Hooks"]:::highlight
+    
+    B --> J["👤 YuNet Face Tracker<br/>(Centroid Tracking & Camera Glide)"]:::highlight
+    
+    I --> K["🎬 Render Graph Builder<br/>• FaceCrop vs BlurFit (60-75% h)<br/>• EBU R128 Audio Normalization<br/>• Sub-frame ASS Subtitles"]:::render
+    J --> K
+    
+    K --> L{"Hardware Encoder"}
+    L -->|NVIDIA GPU| M["🚀 h264_nvenc (Preset P5)"]:::render
+    L -->|CPU Fallback| N["⚙️ libx264 High Profile"]:::render
+    
+    M --> O["📱 Final 9:16 Vertical Video<br/>(1080x1920 MP4)"]:::render
+    N --> O
 ```
 
 ---
 
 ## 🎨 Built-In Style Presets
 
-Viral Clipper ships with 8 professionally tuned design templates:
+Viral Clipper includes 8 built-in design presets:
 
-| Preset ID | Name | Typography | Styling Highlights | Best For |
+| Preset | Typography | Highlight Style | Framing Mode | Ideal Use Case |
 | :--- | :--- | :--- | :--- | :--- |
-| `tiktok` | **Viral Bold** | Poppins ExtraBold | Cyan active word, scale pop-in, 9:16 face crop, progress bar, punch zooms | High-energy TikToks, YouTube Shorts |
-| `hormozi` | **Hormozi Style** | Anton | Giant 2-word chunks, electric yellow active word, aggressive punch-ins | Business advice, motivational, podcasts |
-| `cinematic` | **Cinematic Story** | Montserrat | Ambient depth blur, dramatic pacing, restrained push-ins, gold accent | Long-form interviews, documentaries |
-| `neon_gaming` | **Neon Gaming** | Bebas Neue | Neon green highlights, purple glow outline, gameplay retained | Gaming highlights, esports clips |
-| `arabic_classic`| **Arabic Classic** | Tajawal ExtraBold | Native RTL shaping, gold active word, soft contrast dark box | Arabic podcasts, speeches, talks |
-| `caption_top` | **Captions Top** | Poppins Bold | Subtitles positioned in upper third; face & action unobstructed | Sports, demonstrations, cooking |
-| `split_stack` | **Split Screen** | Poppins Medium | Top speaker, bottom looping background video (subway/gameplay) | Faceless TikTok format, retention loops |
-| `minimal` | **Minimal Clean** | Poppins Medium | Crisp white text, subtle shadow, zero distractions | Educational lectures, clean explainers |
+| **Viral Bold** | `Poppins ExtraBold` | Cyan Pop-In Text | 9:16 FaceCrop + Progress Bar | High-energy TikToks, Shorts, Reels |
+| **Hormozi Style** | `Anton` | Electric Yellow Box | Tight Punch-In Crop | Business advice, podcasts, monologues |
+| **Cinematic Story** | `Montserrat` | Warm Gold Accent | Ambient Depth BlurFit | Documentaries, slow-burn narratives |
+| **Neon Gaming** | `Bebas Neue` | Neon Green Glow | Gameplay Focused Framing | Twitch clips, esports highlights |
+| **Arabic Classic** | `Tajawal ExtraBold` | Gold RTL Word Box | HarfBuzz / FriBidi Shaped | Arabic podcasts, interviews, speeches |
+| **Captions Top** | `Poppins Bold` | Upper-Third Subtitles | Unobstructed Lower Third | Cooking, sports, product demos |
+| **Split Screen** | `Poppins Medium` | Center Split Subtitles | Speaker Top / B-Roll Bottom | Retention loops, multi-angle reactions |
+| **Minimal Clean** | `Poppins Medium` | Monochromatic Shadow | Clean Neutral Framing | Lectures, educational explainers |
 
 ---
 
 ## 💻 Hardware & System Requirements
 
-Designed specifically to operate reliably on budget gaming laptops without out-of-memory crashes:
+Engineered with a memory safety watchdog specifically tuned for consumer laptops (tested on ASUS TUF Gaming F15, RTX 3050 Laptop GPU, 16 GB RAM):
 
-| Requirement | Minimum Specification | Recommended Specification |
+| Component | Minimum Specification | Recommended Specification |
 | :--- | :--- | :--- |
 | **Operating System** | Windows 10 / 11 (64-bit) | Windows 11 (64-bit) |
-| **Processor** | 4-Core x86_64 CPU (Intel Core i5 / AMD Ryzen 5) | 6-Core+ CPU |
-| **Memory (RAM)** | 16 GB RAM *(strict RAM safety watchdog active)* | 16 GB+ RAM |
-| **Graphics Card (GPU)** | Intel UHD / Iris Xe (CPU rendering) | NVIDIA GTX 1650 / RTX 3050+ (NVENC acceleration) |
-| **Free Storage** | 10 GB free disk space | 25 GB+ SSD storage |
+| **Processor** | Intel Core i5 / AMD Ryzen 5 (4+ Cores) | Intel Core i7 / AMD Ryzen 7 (6+ Cores) |
+| **System Memory** | 16 GB RAM *(strict watchdog active)* | 16 GB+ RAM |
+| **Graphics (GPU)** | Intel UHD / Iris Xe *(CPU x264 rendering)* | NVIDIA GTX 1650 / RTX 3050+ *(NVENC acceleration)* |
+| **Storage** | 10 GB free disk space | 25 GB+ SSD space |
 
 ---
 
-## 🚀 Quickstart Guide
+## 🚀 Quickstart
 
-### 1. Prerequisites (One-Time Setup)
+### 1. Install System Prerequisites
 
-Open **PowerShell** as Administrator and install the essential toolchain:
+Open **PowerShell** as Administrator and run:
 
 ```powershell
-# 1. Install FFmpeg with full codec/libass support (Required)
+# 1. Install FFmpeg with full libass and codec libraries
 winget install Gyan.FFmpeg
 
-# 2. Install Node.js 20+ LTS
+# 2. Install Node.js LTS (v20+)
 winget install OpenJS.NodeJS.LTS
 
 # 3. Install Rust
 winget install Rustlang.Rustup
 
-# 4. Install Python 3.12 (Recommended for faster-whisper compatibility)
+# 4. Install Python 3.12 (optimal for faster-whisper)
 winget install Python.Python.3.12
 ```
 
-> [!IMPORTANT]
-> Restart your PowerShell terminal after installing the prerequisites so all paths are loaded into `PATH`.
+> [!NOTE]
+> Restart your PowerShell terminal after installation so that newly installed tools are available in your `PATH`.
 
 ### 2. Clone the Repository
 
 ```powershell
 git clone https://github.com/alidebbich/ViralClipper.git
-cd viral-clipper
+cd ViralClipper
 ```
 
 ### 3. Install Python Dependencies
@@ -172,114 +199,67 @@ cd viral-clipper
 pip install -r python/requirements.txt
 ```
 
-*(Installs `faster-whisper`, `opencv-python-headless` for YuNet face tracking, `yt-dlp`, `psutil`, `numpy`, and `soundfile`)*
+### 4. Configure Free API Keys
 
-### 4. Configure API Keys (Zero Cost)
-
-Copy `.env.example` to `.env` in the project root:
+Copy the sample environment file:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-Open `.env` and paste your free-tier API keys:
+Open `.env` in any text editor and paste your free-tier keys:
 
 ```env
-# Required for AI clip finding, virality scoring, and editorial decisions
-# Get a free key: https://aistudio.google.com/app/apikey
-GEMINI_API_KEY=your_gemini_api_key_here
+# Google AI Studio (Free Tier for AI Clip Selection & EDL)
+# https://aistudio.google.com/app/apikey
+GEMINI_API_KEY=your_gemini_key_here
 
-# (Optional) Cloud Whisper transcription — 15s for a 10min video
-# Get a free key: https://console.groq.com/keys
-GROQ_API_KEY=your_groq_api_key_here
+# Groq Cloud Console (Optional: Fast 15s Whisper Cloud Transcription)
+# https://console.groq.com/keys
+GROQ_API_KEY=your_groq_key_here
 ```
 
-> [!NOTE]
-> If `GROQ_API_KEY` is omitted, Viral Clipper automatically falls back to offline local transcription using `faster-whisper small` on CPU/CUDA.
+*(If `GROQ_API_KEY` is left blank, the app will automatically transcribe locally using `faster-whisper small` on your CPU/GPU).*
 
-### 5. Launch in Development Mode
+### 5. Launch Application
 
 ```powershell
-# Install frontend packages
+# Install frontend dependencies
 npm install
 
-# Run desktop application
+# Run in desktop development mode
 npm run tauri dev
 ```
 
 ---
 
-## 🧪 Verification & Quality Assurance
+## 🧪 Testing & QA
 
-Viral Clipper includes a rigorous, multi-layer characterization and regression test suite:
+Viral Clipper includes a deterministic automated test suite:
 
 ```powershell
-# Run all Rust library unit tests (30 tests: timeline, captions, zoom, framing, anti-duplication)
+# Run 30 Rust library unit tests (timeline, captions, framing, anti-duplication)
 cd src-tauri
 cargo test --lib
 
-# Run end-to-end characterization tests (11 tests: dead air padding, remapping, ASS generation)
+# Run 11 characterization integration tests (dead-air padding, ASS generation, remapping)
 cargo test --test characterization_tests
 
-# Build frontend and TypeScript verification
+# Build frontend and verify TypeScript types
 cd ..
 npm run build
 ```
 
 ---
 
-## 📁 Repository Layout
-
-```
-├── assets/
-│   ├── fonts/               # Bundled fonts (Anton, Bebas Neue, Poppins, Tajawal)
-│   ├── models/              # OpenCV YuNet Face Detection model (.onnx)
-│   └── sfx/                 # Bundled transition SFX (ding, hit, pop, whoosh)
-├── docs/
-│   ├── CLIPPER_TECHNICAL_AUDIT.md       # Full architectural and environment audit
-│   ├── CLIPPER_IMPLEMENTATION_PLAN.md   # Feature workstreams and roadmap
-│   └── CLIPPER_QA_MATRIX.md             # Test results and render benchmarks
-├── python/
-│   ├── download_yt.py       # Resilient YouTube downloader with GGC failover
-│   ├── face_track.py        # Speaker face tracking & centroid tracking (YuNet)
-│   ├── transcribe.py        # Groq API + faster-whisper streaming worker
-│   └── requirements.txt     # Python dependencies
-├── src/                     # React 19 + TypeScript + Vite UI
-│   ├── App.tsx              # Main desktop application shell
-│   ├── CreateTab.tsx        # Script-to-video studio
-│   └── components/          # Video players, clip cards, EDL previewers
-├── src-tauri/               # Tauri 2 (Rust) Backend
-│   └── src/
-│       ├── pipeline/        # Download, transcribe, analyze, edit, and render orchestration
-│       ├── render/          # FFmpeg engine, ASS subtitles, presets, edit plan, NVENC
-│       ├── storage/         # SQLite database and migrations
-│       └── templates/       # Built-in short-form design templates
-└── package.json             # Workspace dependencies & build scripts
-```
-
----
-
-## 🗺️ Roadmap
-
-- [x] Intelligent 9:16 vertical face-tracking with smooth camera glide.
-- [x] High-coverage designed background composition (BlurFit filling 60–75% height).
-- [x] Anti-duplication hook system and anti-flicker subtitle chunking.
-- [x] Native HarfBuzz + FriBidi right-to-left Arabic captioning.
-- [x] Resilient YouTube download engine with resilient GGC network failover.
-- [ ] Direct one-click publishing and scheduling to TikTok and Instagram Reels.
-- [ ] Multi-speaker automated two-box conversation split mode.
-- [ ] Local Ollama integration for 100% air-gapped AI editorial scoring.
-
----
-
-## 📜 License & Credits
+## 📜 License & Acknowledgments
 
 Distributed under the **MIT License**.
 
-- **Fonts:** Poppins (SIL OFL), Bebas Neue (SIL OFL), Anton (SIL OFL), Tajawal (SIL OFL).
+- **Typography:** Fonts bundled under SIL Open Font License (`Poppins`, `Anton`, `Bebas Neue`, `Tajawal`).
 - **Face Model:** OpenCV Zoo YuNet (Apache 2.0).
-- **Engine:** Built with [Tauri](https://tauri.app/), [React](https://react.dev/), [FFmpeg](https://ffmpeg.org/), and [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
+- **Core Stack:** Powered by [Tauri](https://tauri.app/), [React](https://react.dev/), [FFmpeg](https://ffmpeg.org/), and [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
 
 <div align="center">
-  <sub>Developed by <strong>Ali</strong> • Built with zero budget on open-source foundations.</sub>
+  <sub>Built with zero budget by <strong>Ali</strong> • Powered by Open-Source.</sub>
 </div>

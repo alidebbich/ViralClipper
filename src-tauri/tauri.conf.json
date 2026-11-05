@@ -25,7 +25,18 @@
       }
     ],
     "security": {
-      "csp": null
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "**",
+          "**/*",
+          "$APPDATA/**",
+          "$APPDATA/**/*",
+          "$LOCALAPPDATA/**",
+          "$LOCALAPPDATA/**/*"
+        ]
+      }
     }
   },
   "bundle": {
@@ -46,7 +57,8 @@
         "type": "downloadBootstrapper"
       }
     },
-    "externalBin": []
+    "externalBin": [],
+    "resources": ["../python/*", "../assets/**/*"]
   },
   "plugins": {
     "fs": {

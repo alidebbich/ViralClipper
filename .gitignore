@@ -1,7 +1,51 @@
-# ─── Secrets ────────────────────────────────────────────────────────────────
+# ─── Secrets & Credentials (NEVER COMMIT) ──────────────────────────────────
 .env
-.env.local
-.env*.local
+.env.*
+*.env
+!.env.example
+*.key
+key.txt
+*.pem
+*.cert
+*.pfx
+*cookie*.txt
+cookies.txt
+credentials.json
+client_secret*.json
+
+# ─── Proprietary AI Agents, Rules, Skills & Docs (NEVER COMMIT) ───────────
+.agent/
+.agents/
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+SKILL.md
+SKILL*.md
+docs/
+*.md
+!README.md
+
+# ─── Personal Attachments, Dumps & Scratch Scripts (NEVER COMMIT) ───────────
+.hermes/
+*.txt
+!python/requirements.txt
+!assets/fonts/OFL-*.txt
+*.pdf
+*.ass
+*.vtt
+dummy*.mp4
+export_tiktok*.mp4
+src-tauri/*.mp4
+src-tauri/*.py
+test_*.jpg
+test_*.ass
+test_*.js
+test_*.mjs
+test.py
+split_db.py
+list_tables.py
+inspect_clip.py
+run_baseline.mjs
 
 # ─── Node / Frontend ────────────────────────────────────────────────────────
 node_modules/
@@ -36,11 +80,11 @@ downloads/
 *.wav
 
 # ─── Large committed binaries (moved to setup step) ─────────────────────────
-src-tauri/binaries/ffmpeg.exe
-src-tauri/binaries/python.exe
+src-tauri/binaries/
 bgutil-pot.exe
 
 # ─── Editor ─────────────────────────────────────────────────────────────────
+.worktrees/
 .vscode/*
 !.vscode/extensions.json
 .idea/
@@ -59,6 +103,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# ─── Test Reports and Artifacts ─────────────────────────────────────────────
+playwright-report/
+test-results/
+docs/matrix_outputs/
+
 # ─── Tauri gen (auto-generated) ─────────────────────────────────────────────
 src-tauri/gen/
 
@@ -66,3 +115,12 @@ src-tauri/gen/
 nul
 */nul
 **/nul
+
+bgutil-rs-plugin.zip
+clipper/
+python/heuristics.py
+src-tauri/src/database/
+src-tauri/src/scorer/
+src-tauri/src/thermal/
+src-tauri/src/types_old.rs
+src-tauri/src/whisper/

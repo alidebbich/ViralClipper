@@ -1,6 +1,13 @@
-faster-whisper>=1.0.0
-numpy>=1.24.0
-torch>=2.0.0
-torchaudio>=2.0.0
-librosa>=0.10.0
-scipy>=1.10.0
+# Viral Clipper — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Core transcription (local fallback)
+faster-whisper>=1.1.0
+
+# Audio / numerics
+numpy>=1.26.0
+soundfile>=0.12.0
+psutil>=6.0.0
+
+# Face detection (face_track.py — headless, no GUI dep)
+opencv-python-headless>=4.9.0

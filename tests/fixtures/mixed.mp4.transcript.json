@@ -1,0 +1,50 @@
+{
+  "language": "en",
+  "duration": 12.0,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.0,
+      "text": "Hello, welcome to this video.",
+      "words": [
+        {"start": 0.0, "end": 0.5, "text": "Hello,", "confidence": 1.0},
+        {"start": 0.5, "end": 1.0, "text": "welcome", "confidence": 1.0},
+        {"start": 1.0, "end": 1.5, "text": "to", "confidence": 1.0},
+        {"start": 1.5, "end": 1.8, "text": "this", "confidence": 1.0},
+        {"start": 1.8, "end": 2.0, "text": "video.", "confidence": 1.0}
+      ]
+    },
+    {
+      "start": 2.1,
+      "end": 5.0,
+      "text": "We are going to test the viral clip finder.",
+      "words": [
+        {"start": 2.1, "end": 2.5, "text": "We", "confidence": 1.0},
+        {"start": 2.5, "end": 3.0, "text": "are", "confidence": 1.0},
+        {"start": 3.0, "end": 3.5, "text": "going", "confidence": 1.0},
+        {"start": 3.5, "end": 4.0, "text": "to", "confidence": 1.0},
+        {"start": 4.0, "end": 4.5, "text": "test", "confidence": 1.0},
+        {"start": 4.5, "end": 4.8, "text": "the", "confidence": 1.0},
+        {"start": 4.8, "end": 5.0, "text": "finder.", "confidence": 1.0}
+      ]
+    },
+    {
+      "start": 5.5,
+      "end": 11.5,
+      "text": "This is a very long sentence that will make sure the clip duration is over ten seconds so the AI will not reject it.",
+      "words": [
+        {"start": 5.5, "end": 6.0, "text": "This", "confidence": 1.0},
+        {"start": 6.0, "end": 6.5, "text": "is", "confidence": 1.0},
+        {"start": 6.5, "end": 7.0, "text": "a", "confidence": 1.0},
+        {"start": 7.0, "end": 7.5, "text": "very", "confidence": 1.0},
+        {"start": 7.5, "end": 8.0, "text": "long", "confidence": 1.0},
+        {"start": 8.0, "end": 8.5, "text": "sentence", "confidence": 1.0},
+        {"start": 8.5, "end": 9.0, "text": "that", "confidence": 1.0},
+        {"start": 9.0, "end": 9.5, "text": "will", "confidence": 1.0},
+        {"start": 9.5, "end": 10.0, "text": "make", "confidence": 1.0},
+        {"start": 10.0, "end": 10.5, "text": "sure", "confidence": 1.0},
+        {"start": 10.5, "end": 11.5, "text": "it works.", "confidence": 1.0}
+      ]
+    }
+  ]
+}

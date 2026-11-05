@@ -1,6 +1,6 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
-use crate::database::DbPool;
+use crate::storage::DbPool;
 use tauri::Manager;
 use uuid::Uuid;
 use rusqlite::OptionalExtension;
@@ -175,12 +175,12 @@ pub async fn sync_pexels_assets(
     }
     
     let data: serde_json::Value = response.json().await.map_err(|e| e.to_string())?;
-    let videos: Vec<serde_json::Value> = data["videos"].as_array().map(|a| a.clone()).unwrap_or_default();
+    let videos: Vec<serde_json::Value> = data["videos"].as_array().cloned().unwrap_or_default();
     
     let mut imported = Vec::new();
     
     for video in videos {
-        let video_files: Vec<serde_json::Value> = video["video_files"].as_array().map(|a| a.clone()).unwrap_or_default();
+        let video_files: Vec<serde_json::Value> = video["video_files"].as_array().cloned().unwrap_or_default();
         
         // Find best quality vertical video
         let best_file = video_files.iter()
