@@ -8,15 +8,7 @@
   Automated face tracking • Kinetic word-by-word subtitles • Dead-air trimming • Dynamic punch zooms • Broadcast audio mastering
 </p>
 
-<p align="center">
-  <a href="https://tauri.app/"><img src="https://img.shields.io/badge/Tauri-2.0-24C8D8?style=flat-square&logo=tauri&logoColor=white" alt="Tauri 2"></a>
-  <a href="https://www.rust-lang.org/"><img src="https://img.shields.io/badge/Rust-2021_Edition-DEA584?style=flat-square&logo=rust&logoColor=white" alt="Rust"></a>
-  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19.1-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 19"></a>
-  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"></a>
-  <a href="https://ffmpeg.org/"><img src="https://img.shields.io/badge/FFmpeg-9.0_Full-007808?style=flat-square&logo=ffmpeg&logoColor=white" alt="FFmpeg"></a>
-  <a href="https://developer.nvidia.com/video-encode-decode-gpu-support-matrix"><img src="https://img.shields.io/badge/NVIDIA-NVENC_Accelerated-76B900?style=flat-square&logo=nvidia&logoColor=white" alt="NVENC"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License"></a>
-</p>
+
 
 <p align="center">
   <a href="#-showcase">Showcase</a> •
