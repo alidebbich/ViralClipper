@@ -1,7 +1,6 @@
-<div align="center">
+# Viral Clipper
 
-# ⚡ Viral Clipper
-### *The Autonomous, Local-First AI Short-Form Video Studio*
+> Local-first desktop studio that analyzes long-form video, finds high-retention moments, and generates edited 9:16 vertical shorts with smart face tracking, dynamic kinetic subtitles, dead-air trimming, and audio mastering.
 
 <p align="center">
   <strong>Transform long-form YouTube videos, podcasts, and streams into high-retention 9:16 vertical clips.</strong><br />
@@ -22,7 +21,7 @@
 
 ---
 
-</div>
+## Overview
 
 
 
@@ -36,154 +35,111 @@
 
 ---
 
-## ⚡ Core Features
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### 🧠 Autonomous Creative Director
-- **Whole-Video Analysis:** Ingests long videos, evaluating speech density, emotional hooks, and narrative escalation rather than arbitrary time intervals.
-- **Sentence-Boundary Snapping:** Automatically detects sentence start and end points—never cuts words in half or leaves amputated thoughts.
-- **Honest Feedback Rubric:** Provides realistic virality scores, hook ratings, and actionable critique before rendering.
-
-</td>
-<td width="50%" valign="top">
-
-### 👤 Deep Learning Face Tracking
-- **YuNet ONNX Centroid Tracking:** Automatically tracks speaker faces across 16:9 frames to compose smooth 9:16 vertical shorts.
-- **Camera Glide Stabilization:** Dead-zone smoothing prevents jitter and unnatural micro-movements during natural head motion.
-- **Multi-Person Fallback:** Intelligently centers on the primary speaker when multiple subjects appear.
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-### 💬 Kinetic Karaoke Subtitles
-- **Word-Level Sub-Frame Sync:** Subtitles stay perfectly synchronized across jump cuts using deterministic timeline remapping.
-- **Phrase-Aware Chunking:** Natural 2–4 word groupings with punctuation anti-flicker protection (no isolated 1-word flashes).
-- **Native Arabic RTL Support:** Built-in HarfBuzz and FriBidi shaping with bundled `Tajawal` font—proper ligatures and glyph direction.
-- **Responsive Dynamic Titles:** Prominent 8%–12% width title banner with auto-wrapping and anti-duplication protection.
-
-</td>
-<td width="50%" valign="top">
-
-### ✂️ Precision Pacing & Edit Engine
-- **Dead-Air Silence Trimming:** Detects pauses and awkward silences, inserting an 80–120ms safety margin to preserve speech rhythm.
-- **Dynamic Punch-In Zooms:** Evaluates per-frame scale zoom punches (8%–18%) tied to topic shifts and dramatic hooks.
-- **Designed Background BlurFit:** For wide shots or gameplay, scales foreground to occupy 60%–75% canvas height with Lanczos-filtered blur.
-- **Broadcast Audio Mastering:** High-pass filter (70 Hz), EBU R128 loudness normalization (`-14 LUFS`), and sidechain music ducking.
-
-</td>
-</tr>
-</table>
-
----
-
-## 🏗️ Architecture
+## Pipeline Architecture
 
 ```mermaid
-flowchart LR
-    classDef highlight fill:#1f2937,stroke:#3b82f6,stroke-width:2px,color:#fff;
-    classDef render fill:#111827,stroke:#10b981,stroke-width:2px,color:#fff;
-    
-    A["🎥 Source Video<br/>(YouTube URL / Local MP4)"] --> B["📥 Downloader & Ingest<br/>(Resilient GGC Failover)"]
-    B --> C["🎙️ Audio Extraction<br/>(16kHz Mono WAV)"]
-    C --> D{"Whisper Engine"}
-    
-    D -->|Cloud Primary| E["⚡ Groq Whisper<br/>(~15s for 10m video)"]
-    D -->|Local / Offline| F["💻 faster-whisper<br/>(small int8 CPU/CUDA)"]
-    
-    E --> G["📝 Word Timestamps JSON"]
-    F --> G
-    
-    G --> H["🧠 Clip Finder & Scorer<br/>(Boundary Snapping & Virality Rating)"]:::highlight
-    H --> I["📋 Edit Decision List (EDL)<br/>• Cuts • Zooms • SFX • Hooks"]:::highlight
-    
-    B --> J["👤 YuNet Face Tracker<br/>(Centroid Tracking & Camera Glide)"]:::highlight
-    
-    I --> K["🎬 Render Graph Builder<br/>• FaceCrop vs BlurFit (60-75% h)<br/>• EBU R128 Audio Normalization<br/>• Sub-frame ASS Subtitles"]:::render
-    J --> K
-    
-    K --> L{"Hardware Encoder"}
-    L -->|NVIDIA GPU| M["🚀 h264_nvenc (Preset P5)"]:::render
-    L -->|CPU Fallback| N["⚙️ libx264 High Profile"]:::render
-    
-    M --> O["📱 Final 9:16 Vertical Video<br/>(1080x1920 MP4)"]:::render
-    N --> O
+flowchart TD
+    subgraph Ingestion
+        A[YouTube URL / Local Video] --> B[Resilient Ingestion & Downloader]
+        B --> C[16kHz Mono Audio Extraction]
+    end
+
+    subgraph Transcription
+        C --> D{Transcription Engine}
+        D -->|Cloud Primary| E[Groq Whisper API ~15s]
+        D -->|Offline Fallback| F[Local faster-whisper small]
+        E --> G[Word-Level Timestamps]
+        F --> G
+    end
+
+    subgraph Intelligence
+        G --> H[Clip Finder & Virality Scorer]
+        H --> I[Editor Brain: Edit Decision List]
+        B --> J[YuNet DL Face Tracking]
+    end
+
+    subgraph RenderEngine[Deterministic Render Engine]
+        I --> K[Filter Graph Builder]
+        J --> K
+        K --> L[FaceCrop / BlurFit Composition]
+        K --> M[ASS Subtitle & Title Generator]
+        K --> N[EBU R128 Loudness Normalizer]
+        L & M & N --> O{Encoder}
+        O -->|NVIDIA GPU| P[h264_nvenc P5]
+        O -->|CPU Fallback| Q[libx264]
+    end
+
+    P --> R[Final 9:16 MP4 Video]
+    Q --> R
 ```
 
 ---
 
-## 🎨 Built-In Style Presets
+## Style Presets
 
-Viral Clipper includes 8 built-in design presets:
-
-| Preset | Typography | Highlight Style | Framing Mode | Ideal Use Case |
+| Preset | Typography | Highlight Style | Framing Strategy | Best Suited For |
 | :--- | :--- | :--- | :--- | :--- |
-| **Viral Bold** | `Poppins ExtraBold` | Cyan Pop-In Text | 9:16 FaceCrop + Progress Bar | High-energy TikToks, Shorts, Reels |
-| **Hormozi Style** | `Anton` | Electric Yellow Box | Tight Punch-In Crop | Business advice, podcasts, monologues |
-| **Cinematic Story** | `Montserrat` | Warm Gold Accent | Ambient Depth BlurFit | Documentaries, slow-burn narratives |
-| **Neon Gaming** | `Bebas Neue` | Neon Green Glow | Gameplay Focused Framing | Twitch clips, esports highlights |
-| **Arabic Classic** | `Tajawal ExtraBold` | Gold RTL Word Box | HarfBuzz / FriBidi Shaped | Arabic podcasts, interviews, speeches |
-| **Captions Top** | `Poppins Bold` | Upper-Third Subtitles | Unobstructed Lower Third | Cooking, sports, product demos |
-| **Split Screen** | `Poppins Medium` | Center Split Subtitles | Speaker Top / B-Roll Bottom | Retention loops, multi-angle reactions |
-| **Minimal Clean** | `Poppins Medium` | Monochromatic Shadow | Clean Neutral Framing | Lectures, educational explainers |
+| **Viral Bold** | Poppins ExtraBold | Cyan Pop-In Text | 9:16 FaceCrop + Progress Bar | TikTok, YouTube Shorts, Reels |
+| **Hormozi Style** | Anton | Electric Yellow Box | Tight Punch-In Crop | Podcasts, business, advice |
+| **Cinematic Story** | Montserrat | Warm Gold Accent | Ambient Depth BlurFit | Storytelling, documentaries |
+| **Neon Gaming** | Bebas Neue | Neon Green Glow | Gameplay Framing | Stream highlights, gaming clips |
+| **Arabic Classic** | Tajawal ExtraBold | Gold RTL Word Box | HarfBuzz / FriBidi Shaped | Arabic podcasts & speeches |
+| **Captions Top** | Poppins Bold | Upper-Third Subtitles | Clear Lower Third | Sports, cooking, demos |
+| **Split Screen** | Poppins Medium | Center Split Subtitles | Speaker Top / B-Roll Bottom | Retention loops, reactions |
+| **Minimal Clean** | Poppins Medium | Monochromatic Shadow | Clean Neutral Framing | Lectures, educational explainers |
 
 ---
 
-## 💻 Hardware & System Requirements
+## Hardware & System Requirements
 
-Engineered with a memory safety watchdog specifically tuned for consumer laptops (tested on ASUS TUF Gaming F15, RTX 3050 Laptop GPU, 16 GB RAM):
+Viral Clipper includes an active RAM safety watchdog designed to operate reliably on standard laptops without memory exhaustion:
 
-| Component | Minimum Specification | Recommended Specification |
+| Component | Minimum | Recommended |
 | :--- | :--- | :--- |
 | **Operating System** | Windows 10 / 11 (64-bit) | Windows 11 (64-bit) |
-| **Processor** | Intel Core i5 / AMD Ryzen 5 (4+ Cores) | Intel Core i7 / AMD Ryzen 7 (6+ Cores) |
-| **System Memory** | 16 GB RAM *(strict watchdog active)* | 16 GB+ RAM |
-| **Graphics (GPU)** | Intel UHD / Iris Xe *(CPU x264 rendering)* | NVIDIA GTX 1650 / RTX 3050+ *(NVENC acceleration)* |
-| **Storage** | 10 GB free disk space | 25 GB+ SSD space |
+| **Processor** | Intel Core i5 / AMD Ryzen 5 | Intel Core i7 / AMD Ryzen 7 |
+| **Memory (RAM)** | 16 GB | 16 GB+ |
+| **Graphics (GPU)** | Intel UHD / Iris Xe *(CPU rendering)* | NVIDIA GTX 1650 / RTX 3050+ *(NVENC)* |
+| **Storage** | 10 GB free space | 25 GB+ SSD space |
 
 ---
 
-## 🚀 Quickstart
+## Quickstart Guide
 
-### 1. Install System Prerequisites
+### 1. Prerequisites
 
-Open **PowerShell** as Administrator and run:
+Install the required build tools and runtimes using Windows Package Manager (`winget`):
 
 ```powershell
-# 1. Install FFmpeg with full libass and codec libraries
+# FFmpeg with libass and hardware codecs
 winget install Gyan.FFmpeg
 
-# 2. Install Node.js LTS (v20+)
+# Node.js LTS (v20+)
 winget install OpenJS.NodeJS.LTS
 
-# 3. Install Rust
+# Rust toolchain
 winget install Rustlang.Rustup
 
-# 4. Install Python 3.12 (optimal for faster-whisper)
+# Python 3.12 (optimal for faster-whisper)
 winget install Python.Python.3.12
 ```
 
-> [!NOTE]
-> Restart your PowerShell terminal after installation so that newly installed tools are available in your `PATH`.
+> **Note:** Restart your PowerShell terminal after installation to ensure all binaries are loaded into your `PATH`.
 
-### 2. Clone the Repository
+### 2. Clone & Install
 
 ```powershell
 git clone https://github.com/alidebbich/ViralClipper.git
 cd ViralClipper
-```
 
-### 3. Install Python Dependencies
-
-```powershell
+# Install Python worker dependencies
 pip install -r python/requirements.txt
+
+# Install frontend dependencies
+npm install
 ```
 
-### 4. Configure Free API Keys
+### 3. Configure API Keys
 
 Copy the sample environment file:
 
@@ -191,59 +147,74 @@ Copy the sample environment file:
 Copy-Item .env.example .env
 ```
 
-Open `.env` in any text editor and paste your free-tier keys:
+Open `.env` and enter your free API keys:
 
 ```env
-# Google AI Studio (Free Tier for AI Clip Selection & EDL)
+# Google AI Studio (Free tier for clip analysis & scoring)
 # https://aistudio.google.com/app/apikey
-GEMINI_API_KEY=your_gemini_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 
-# Groq Cloud Console (Optional: Fast 15s Whisper Cloud Transcription)
+# Groq Cloud (Optional: fast 15-second Whisper cloud transcription)
 # https://console.groq.com/keys
-GROQ_API_KEY=your_groq_key_here
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
-*(If `GROQ_API_KEY` is left blank, the app will automatically transcribe locally using `faster-whisper small` on your CPU/GPU).*
+*Note: If `GROQ_API_KEY` is not set, Viral Clipper will automatically transcribe locally using `faster-whisper small` on your CPU or GPU.*
 
-### 5. Launch Application
+### 4. Run the Application
 
 ```powershell
-# Install frontend dependencies
-npm install
-
-# Run in desktop development mode
 npm run tauri dev
 ```
 
 ---
 
-## 🧪 Testing & QA
+## Verification & Testing
 
-Viral Clipper includes a deterministic automated test suite:
+The project includes an end-to-end characterization and regression test suite:
 
 ```powershell
-# Run 30 Rust library unit tests (timeline, captions, framing, anti-duplication)
+# Run Rust unit tests (timeline, captions, framing, deduplication)
 cd src-tauri
 cargo test --lib
 
-# Run 11 characterization integration tests (dead-air padding, ASS generation, remapping)
+# Run integration characterization tests
 cargo test --test characterization_tests
 
-# Build frontend and verify TypeScript types
+# Verify frontend types and build
 cd ..
 npm run build
 ```
 
 ---
 
-## 📜 License & Acknowledgments
+## Repository Structure
 
-Distributed under the **MIT License**.
+```
+ViralClipper/
+├── assets/
+│   └── fonts/               # Bundled fonts (Anton, Bebas Neue, Poppins, Tajawal)
+├── python/
+│   ├── download_yt.py       # Resilient YouTube downloader with GGC failover
+│   ├── face_track.py        # YuNet ONNX face centroid tracking
+│   ├── transcribe.py        # Groq API + local faster-whisper streaming worker
+│   └── requirements.txt     # Python dependencies
+├── src/                     # React 19 + TypeScript frontend
+│   ├── App.tsx              # Main desktop application interface
+│   ├── CreateTab.tsx        # Script-to-video workflow
+│   └── components/          # Video players, clip cards, EDL previewers
+├── src-tauri/               # Tauri 2 (Rust) desktop backend
+│   └── src/
+│       ├── pipeline/        # Ingestion, transcription, analysis, rendering orchestration
+│       ├── render/          # FFmpeg engine, ASS generator, presets, NVENC
+│       ├── storage/         # SQLite persistence and migrations
+│       └── templates/       # Short-form design presets
+├── .env.example             # Safe template for environment variables
+└── package.json             # Workspace dependencies
+```
 
-- **Typography:** Fonts bundled under SIL Open Font License (`Poppins`, `Anton`, `Bebas Neue`, `Tajawal`).
-- **Face Model:** OpenCV Zoo YuNet (Apache 2.0).
-- **Core Stack:** Powered by [Tauri](https://tauri.app/), [React](https://react.dev/), [FFmpeg](https://ffmpeg.org/), and [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
+---
 
-<div align="center">
-  <sub>Built with zero budget by <strong>Ali</strong> • Powered by Open-Source.</sub>
-</div>
+## License
+
+Distributed under the [MIT License](LICENSE). Built by **Ali Debbich**.

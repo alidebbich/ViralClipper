@@ -124,3 +124,4 @@ src-tauri/src/scorer/
 src-tauri/src/thermal/
 src-tauri/src/types_old.rs
 src-tauri/src/whisper/
+assets/*.jpg
