@@ -24,15 +24,7 @@
 
 </div>
 
-## 📸 Showcase
 
-<div align="center">
-  <img src="assets/showcase_contact.jpg" alt="Viral Clipper Real Render Contact Sheet" width="900" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
-  <br />
-  <sub><em>Render Validation: 16:9 YouTube Stream → 9:16 Vertical Short with YuNet Face Tracking, Dynamic Hook, Kinetic Pop Subtitles, and Dead-Air Cuts.</em></sub>
-</div>
-
-<br />
 
 <div align="center">
 
