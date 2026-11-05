@@ -162,7 +162,7 @@ winget install Python.Python.3.12
 ### 2. Clone the Repository
 
 ```powershell
-git clone https://github.com/your-username/viral-clipper.git
+git clone https://github.com/alidebbich/ViralClipper.git
 cd viral-clipper
 ```
 
